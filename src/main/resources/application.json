@@ -1,0 +1,19 @@
+{
+  "users": {
+    "1": {
+      "name": "user",
+      "password": "password",
+      "role": "ROLE_USER"
+    },
+    "2": {
+      "name": "DUMMY",
+      "password": "123",
+      "role": "ROLE_USER"
+    },
+    "3": {
+      "name": "Yellow",
+      "password": "BANANA",
+      "role": "ROLE_MANAGER"
+    }
+  }
+}

@@ -32,34 +32,19 @@ public class HotelNetwork {
     }
 
     public Hotel addHotel(long adminId) {
-        User user = new User(1, "", "", UserType.MANAGER); //ВРЕМЕННО, пока нет авторизации
-
-        if (user.getType().equals(UserType.MANAGER)) {
-            Hotel hotel = new Hotel(hotelCounter.incrementAndGet(), adminId);
-            hotels.put(hotel.getId(), hotel);
-            return hotel;
-        }
-        return null;
+        Hotel hotel = new Hotel(hotelCounter.incrementAndGet(), adminId);
+        hotels.put(hotel.getId(), hotel);
+        return hotel;
     }
 
     public Room addRoom(long hotelId, String name, String descr, double price) {
-        User user = new User(1, "", "", UserType.MANAGER); //ВРЕМЕННО, пока нет авторизации
-
-        if (user.getType().equals(UserType.MANAGER)) {
-            return getHotel(hotelId).addRoom(name, descr, price);
-        }
-        return null;
+        return getHotel(hotelId).addRoom(name, descr, price);
     }
 
     public Hotel updateHotel(long hotelId, String name, String descr) {
-        User user = new User(1, "", "", UserType.MANAGER); //ВРЕМЕННО, пока нет авторизации
-
-        if (user.getType().equals(UserType.MANAGER)) {
-            Hotel hotel = getHotel(hotelId);
-            hotel.setName(name);
-            hotel.setDescription(descr);
-            return hotel;
-        }
-        return null;
+        Hotel hotel = getHotel(hotelId);
+        hotel.setName(name);
+        hotel.setDescription(descr);
+        return hotel;
     }
 }

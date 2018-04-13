@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class HotelResourse implements HotelService {
+public class HotelResource implements HotelService {
 
     private final HotelNetwork hotelNetwork = new HotelNetwork();
 
@@ -24,7 +24,11 @@ public class HotelResourse implements HotelService {
 
     @Override
     public Hotel getHotel(@PathVariable("hotelId") Long hotelId) {
-        return hotelNetwork.getHotel(hotelId);
+        Hotel hotel = hotelNetwork.getHotel(hotelId);
+        if (hotel == null) {
+            throw new RuntimeException("Hotel with id \"" + hotelId + "\" is not found");
+        }
+        return hotel;
     }
 
     @Override

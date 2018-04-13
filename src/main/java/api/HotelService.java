@@ -2,6 +2,7 @@ package api;
 
 import hotels.Hotel;
 import hotels.Room;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,12 +24,15 @@ public interface HotelService {
     Room getRoom(@PathVariable("hotelId") Long hotelId, @PathVariable("roomId") Integer roomId);
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotels")
+    @Secured("ROLE_MANAGER")
     Hotel addHotel(@RequestParam Long adminId);
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotels/{hotelId}/rooms")
+    @Secured("ROLE_MANAGER")
     Room addRoom(@PathVariable("hotelId") Long hotelId, RoomUpdateRequest request);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}", consumes = "application/json")
+    @Secured("USER_MANAGER")
     Hotel updateHotel(@PathVariable("hotelId") Long hotelId, HotelUpdateRequest request);
 
 //    @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}/rooms/{roomId}")

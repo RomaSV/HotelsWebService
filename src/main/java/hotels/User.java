@@ -1,20 +1,20 @@
 package hotels;
 
 public class User {
-    private final long id;
+    private final String nickName;
     private String name;
     private String password;
     private UserType type;
 
-    public User(long id, String name, String password, UserType type) {
-        this.id = id;
+    public User(String nickName, String name, String password, UserType type) {
+        this.nickName = nickName;
         this.name = name;
         this.password = password;
         this.type = type;
     }
 
-    public long getId() {
-        return id;
+    public String getNickName() {
+        return nickName;
     }
 
     public String getName() {
