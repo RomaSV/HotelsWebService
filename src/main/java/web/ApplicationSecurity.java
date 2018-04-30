@@ -23,10 +23,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/hotels/**").fullyAuthenticated()
-                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/hotels"); //Doesn't work
+                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint);
     }
 
     @Override

@@ -2,6 +2,8 @@ package api;
 
 import hotels.Hotel;
 import hotels.Room;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface HotelService {
     @RequestMapping(method = RequestMethod.GET, value = "/hotels")
+    //Secured just to show that auth works with GET but not with POST or PUT
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Add hotel", authorizations = {@Authorization(value="basicAuth")})
     List<Hotel> getHotels();
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}")
@@ -25,14 +31,17 @@ public interface HotelService {
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotels")
     @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Add hotel", authorizations = {@Authorization(value="basicAuth")})
     Hotel addHotel(@RequestParam Long adminId);
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotels/{hotelId}/rooms")
     @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Add room", authorizations = {@Authorization(value="basicAuth")})
     Room addRoom(@PathVariable("hotelId") Long hotelId, RoomUpdateRequest request);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}", consumes = "application/json")
     @Secured("USER_MANAGER")
+    @ApiOperation(value = "Update hotel info", authorizations = {@Authorization(value="basicAuth")})
     Hotel updateHotel(@PathVariable("hotelId") Long hotelId, HotelUpdateRequest request);
 
 //    @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}/rooms/{roomId}")
