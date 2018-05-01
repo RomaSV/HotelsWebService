@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Locale;
 
 public interface HotelService {
     @RequestMapping(method = RequestMethod.GET, value = "/hotels")
-    //Secured just to show that auth works with GET but not with POST or PUT
-    @Secured("ROLE_MANAGER")
-    @ApiOperation(value = "Add hotel", authorizations = {@Authorization(value="basicAuth")})
     List<Hotel> getHotels();
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}")
@@ -44,8 +40,8 @@ public interface HotelService {
     @ApiOperation(value = "Update hotel info", authorizations = {@Authorization(value="basicAuth")})
     Hotel updateHotel(@PathVariable("hotelId") Long hotelId, HotelUpdateRequest request);
 
-//    @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}/rooms/{roomId}")
-//    Room updateRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId);
+    @RequestMapping(method = RequestMethod.PATCH, value = "/hotels/{hotelId}/rooms/{roomId}")
+    Room bookRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId, RoomBookRequest request);
 
 //    @RequestMapping(method = RequestMethod.DELETE, params = "/hotels")
 //    boolean deleteHotels();

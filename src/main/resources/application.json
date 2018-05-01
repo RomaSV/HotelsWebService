@@ -14,6 +14,37 @@
       "name": "Yellow",
       "password": "BANANA",
       "role": "ROLE_MANAGER"
+    },
+    "4": {
+      "name":"hotelAdmin",
+      "password":"admin",
+      "role":"ROLE_ADMIN"
+    }
+  },
+
+  "hotels": {
+    "1": {
+      "name":"Loteh",
+      "description":"You want to stay here, for sure.",
+      "adminId":"4",
+      "rooms": {
+        "1": {
+          "name":"414",
+          "description":"The most comfy room in the hotel!",
+          "price":"1000",
+          "bookedDays": ["2018-05-01", "2018-05-02", "2018-05-03", "2018-05-04", "2018-05-05"]
+        }
+      }
+    }
+  },
+
+  "reservations": {
+    "1": {
+      "hotelId": "1",
+      "roomId": "1",
+      "userId": "1",
+      "arrival": "2018-05-01",
+      "department": "2018-05-05"
     }
   }
 }

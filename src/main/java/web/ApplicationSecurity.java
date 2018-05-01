@@ -23,7 +23,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/hotels/**").fullyAuthenticated()
-                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint);
+                .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                .and().csrf().disable();
     }
 
     @Override

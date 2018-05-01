@@ -17,9 +17,11 @@ public class Room {
         bookedDays = new ArrayList<>();
     }
 
-    public boolean book(LocalDate firstDay, LocalDate lastDay) {
-        if (isFree(firstDay, lastDay)) {
-            for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
+    public boolean book(String arrival, String department) {
+        LocalDate firstDay = LocalDate.parse(arrival);
+        LocalDate lastDay = LocalDate.parse(department);
+        if (isFree(arrival, department)) {
+            for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
                 bookedDays.add(date);
             }
             return true;
@@ -28,20 +30,24 @@ public class Room {
         }
     }
 
-    public void cancelBooking(LocalDate firstDay, LocalDate lastDay) {
+    public void cancelBooking(String arrival, String  department) {
+        LocalDate firstDay = LocalDate.parse(arrival);
+        LocalDate lastDay = LocalDate.parse(department);
         checkDates(firstDay, lastDay);
 
-        for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
+        for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
             if (bookedDays.contains(date)) {
                 bookedDays.remove(date);
             }
         }
     }
 
-    public boolean isFree(LocalDate firstDay, LocalDate lastDay) {
+    public boolean isFree(String arrival, String department) {
+        LocalDate firstDay = LocalDate.parse(arrival);
+        LocalDate lastDay = LocalDate.parse(department);
         checkDates(firstDay, lastDay);
 
-        for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
+        for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
             if (bookedDays.contains(date)) {
                 return false;
             }
@@ -59,6 +65,11 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    //Just for debug
+    public String getBookedDays() {
+        return bookedDays.toString();
     }
 
     public void setDescription(String description) {

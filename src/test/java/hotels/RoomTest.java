@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
-    private LocalDate first1 = LocalDate.of(2018, 4, 1);
-    private LocalDate last1 = LocalDate.of(2018, 4, 10);
-    private LocalDate first2 = LocalDate.of(2018, 4, 5);
-    private LocalDate last2 = LocalDate.of(2018, 4, 15);
+    private String first1 = "2018-04-01";
+    private String last1 = "2018-04-10";
+    private String first2 = "2018-04-05";
+    private String last2 = "2018-04-15";
 
     @Test
     public void isFreeTest() {
