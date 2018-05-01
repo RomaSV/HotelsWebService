@@ -1,7 +1,5 @@
 package api;
 
-import java.time.LocalDate;
-
 public class RoomBookRequest {
     private String arrival;
     private String department;
