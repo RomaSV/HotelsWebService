@@ -33,8 +33,20 @@
           "description":"The most comfy room in the hotel!",
           "price":"1000",
           "bookedDays": ["2018-05-01", "2018-05-02", "2018-05-03", "2018-05-04", "2018-05-05"]
+        },
+        "2": {
+          "name":"404",
+          "description":"It seems like this room is not found...",
+          "price":"404.99",
+          "bookedDays": ["2018-04-04"]
         }
       }
+    },
+    "2": {
+      "name":"New Loteh",
+      "description":"Even better than Loteh!",
+      "adminId":"6",
+      "rooms": {}
     }
   },
 

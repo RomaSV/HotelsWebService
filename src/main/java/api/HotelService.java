@@ -36,22 +36,35 @@ public interface HotelService {
     Room addRoom(@PathVariable("hotelId") Long hotelId, RoomUpdateRequest request);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}", consumes = "application/json")
-    @Secured("USER_MANAGER")
+    @Secured("ROLE_MANAGER")
     @ApiOperation(value = "Update hotel info", authorizations = {@Authorization(value="basicAuth")})
     Hotel updateHotel(@PathVariable("hotelId") Long hotelId, HotelUpdateRequest request);
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/hotels/{hotelId}/rooms/{roomId}")
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN"})
+    @ApiOperation(value = "Update room info", authorizations = {@Authorization(value="basicAuth")})
+    Room updateRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId, RoomUpdateRequest request);
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/hotels/{hotelId}/rooms/{roomId}")
     Room bookRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId, RoomBookRequest request);
 
-//    @RequestMapping(method = RequestMethod.DELETE, params = "/hotels")
-//    boolean deleteHotels();
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}")
-//    boolean deleteHotel(@PathVariable("hotelId") long hotelId);
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}/rooms")
-//    boolean deleteRooms(@PathVariable("hotelId") long hotelId);
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}/rooms/{roomId}")
-//    boolean deleteRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels")
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Delete all the hotels", authorizations = {@Authorization(value="basicAuth")})
+    void deleteHotels();
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}")
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Delete a particular hotel", authorizations = {@Authorization(value="basicAuth")})
+    boolean deleteHotel(@PathVariable("hotelId") long hotelId);
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}/rooms")
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Delete all the rooms in the hotel", authorizations = {@Authorization(value="basicAuth")})
+    boolean deleteRooms(@PathVariable("hotelId") long hotelId);
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/hotels/{hotelId}/rooms/{roomId}")
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Delete a particular room in the hotel", authorizations = {@Authorization(value="basicAuth")})
+    boolean deleteRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") int roomId);
 }

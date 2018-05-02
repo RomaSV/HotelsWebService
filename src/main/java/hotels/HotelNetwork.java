@@ -47,4 +47,60 @@ public class HotelNetwork {
         hotel.setDescription(descr);
         return hotel;
     }
+
+    public Room updateRoom(long hotelId, int roomId, String name, String description, double price) {
+        Room room = getHotel(hotelId).getRoomById(roomId);
+        room.setName(name);
+        room.setDescription(description);
+        room.setPricePerNight(price);
+        return room;
+    }
+
+    public void deleteHotels() {
+        hotels.clear();
+    }
+
+    /**
+     * Delete a particular hotel.
+     * @param hotelId - id of the hotel.
+     * @return true if it succeeds and false if the hotel is not found.
+     */
+    public boolean deleteHotel(long hotelId) {
+        if (hotels.containsKey(hotelId)) {
+            hotels.remove(hotelId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Delete rooms of a particular hotel.
+     * @param hotelId - id of the hotel.
+     * @return true if it succeeds and false if the hotel is not found.
+     */
+    public boolean deleteRooms(long hotelId) {
+        if (hotels.containsKey(hotelId)) {
+            hotels.get(hotelId).getRooms().clear();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Delete a particular room of the hotel.
+     * @param hotelId - id of the hotel.
+     * @param roomId - id of the room.
+     * @return true if it succeeds and false if the hotel or room is not found.
+     */
+    public boolean deleteRoom(long hotelId, int roomId) {
+        Hotel hotel = getHotel(hotelId);
+        if (hotel != null && hotel.getRooms().containsKey(roomId)) {
+            hotel.getRooms().remove(roomId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

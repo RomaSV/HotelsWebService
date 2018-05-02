@@ -1,14 +1,12 @@
 package hotels;
 
-import java.time.LocalDate;
-
 public class Reservation {
     private final long id;
     private final long hotelId;
     private final int roomId;
     private final long clientId;
-    private LocalDate arrival;
-    private LocalDate departure;
+    private String arrival;
+    private String departure;
 
     public Reservation(long id, long hotelId, int roomId, long clientId) {
         this.id = id;
@@ -21,19 +19,19 @@ public class Reservation {
         return id;
     }
 
-    public LocalDate getArrival() {
+    public String getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalDate arrival) {
+    public void setArrival(String arrival) {
         this.arrival = arrival;
     }
 
-    public LocalDate getDeparture() {
+    public String getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalDate departure) {
+    public void setDeparture(String departure) {
         this.departure = departure;
     }
 

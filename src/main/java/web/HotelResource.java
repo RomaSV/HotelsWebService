@@ -81,9 +81,34 @@ public class HotelResource implements HotelService {
     }
 
     @Override
+    public Room updateRoom(long hotelId, int roomId, RoomUpdateRequest request) {
+        return hotelNetwork.updateRoom(hotelId, roomId, request.getName(), request.getDescription(), request.getPrice());
+    }
+
+    @Override
     public Room bookRoom(long hotelId, int roomId, RoomBookRequest request) {
         Room room = hotelNetwork.getHotel(hotelId).getRoomById(roomId);
         room.book(request.getArrival(), request.getDepartment());
         return room;
+    }
+
+    @Override
+    public void deleteHotels() {
+        hotelNetwork.deleteHotels();
+    }
+
+    @Override
+    public boolean deleteHotel(long hotelId) {
+        return hotelNetwork.deleteHotel(hotelId);
+    }
+
+    @Override
+    public boolean deleteRooms(long hotelId) {
+        return hotelNetwork.deleteRooms(hotelId);
+    }
+
+    @Override
+    public boolean deleteRoom(long hotelId, int roomId) {
+        return hotelNetwork.deleteRoom(hotelId, roomId);
     }
 }
