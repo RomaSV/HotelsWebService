@@ -11,11 +11,11 @@ public class Hotel {
     private String name;
     private String description;
     private final Map<Integer, Room> rooms;
-    private long adminId;
+    private String adminName;
 
-    public Hotel(long id, long adminId) {
+    public Hotel(long id, String adminName) {
         this.id = id;
-        this.adminId = adminId;
+        this.adminName = adminName;
         rooms = new HashMap<>();
         roomCounter = new AtomicInteger();
     }
@@ -74,12 +74,12 @@ public class Hotel {
         return rooms.size();
     }
 
-    public void setAdminId(long adminId) {
-        this.adminId = adminId;
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
-    public long getAdminId() {
-        return adminId;
+    public String getAdminName() {
+        return adminName;
     }
 
     @Override

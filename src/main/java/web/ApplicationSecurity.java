@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true, prePostEnabled = true)
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -21,7 +21,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/hotels/**").fullyAuthenticated()
+                .antMatchers("/hotels/**", "/accounts/**").fullyAuthenticated()
                 .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
                 .and().csrf().disable();
     }

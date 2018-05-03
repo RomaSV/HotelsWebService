@@ -28,7 +28,7 @@ public interface HotelService {
     @RequestMapping(method = RequestMethod.POST, value = "/hotels")
     @Secured("ROLE_MANAGER")
     @ApiOperation(value = "Add hotel", authorizations = {@Authorization(value="basicAuth")})
-    Hotel addHotel(@RequestParam Long adminId);
+    Hotel addHotel(@RequestParam String adminName);
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotels/{hotelId}/rooms")
     @Secured("ROLE_MANAGER")

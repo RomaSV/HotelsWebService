@@ -30,7 +30,7 @@
     "1": {
       "name":"Loteh",
       "description":"You want to stay here, for sure.",
-      "adminId":"4",
+      "adminName":"hotelAdmin",
       "rooms": {
         "1": {
           "name":"414",
@@ -49,7 +49,7 @@
     "2": {
       "name":"New Loteh",
       "description":"Even better than Loteh!",
-      "adminId":"6",
+      "adminName":"6",
       "rooms": {}
     }
   },

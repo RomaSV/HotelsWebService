@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HotelTest {
     @Test
     public void addRoom() {
-        Hotel hotel = new Hotel(1, 1);
+        Hotel hotel = new Hotel(1, "admin");
         Room room = hotel.addRoom("2-х комнатный ЛЮКС", "", 1000.0);
 
         assertEquals(1, hotel.getAmountOfRooms());
@@ -16,7 +16,7 @@ public class HotelTest {
 
     @Test
     public void roomNotFoundTest() {
-        Hotel hotel = new Hotel(1, 1);
+        Hotel hotel = new Hotel(1, "admin");
         try {
             hotel.getRoomById(414);
             fail("Exception expected.");
@@ -27,7 +27,7 @@ public class HotelTest {
 
     @Test
     public void deleteRoomTest() {
-        Hotel hotel = new Hotel(1, 1);
+        Hotel hotel = new Hotel(1, "admin");
         Room room = hotel.addRoom("Room", "", 42.0);
 
         assertTrue(hotel.deleteRoom(room.getId()));

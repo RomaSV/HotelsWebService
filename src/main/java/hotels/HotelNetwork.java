@@ -31,8 +31,8 @@ public class HotelNetwork {
         return getHotel(hotelId).getRooms().getOrDefault(roomId, null);
     }
 
-    public Hotel addHotel(long adminId) {
-        Hotel hotel = new Hotel(hotelCounter.incrementAndGet(), adminId);
+    public Hotel addHotel(String adminName) {
+        Hotel hotel = new Hotel(hotelCounter.incrementAndGet(), adminName);
         hotels.put(hotel.getId(), hotel);
         return hotel;
     }
