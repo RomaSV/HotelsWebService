@@ -4,15 +4,15 @@ public class Reservation {
     private final long id;
     private final long hotelId;
     private final int roomId;
-    private final long clientId;
+    private final String clientName;
     private String arrival;
     private String departure;
 
-    public Reservation(long id, long hotelId, int roomId, long clientId) {
+    public Reservation(long id, long hotelId, int roomId, String clientName) {
         this.id = id;
         this.hotelId = hotelId;
         this.roomId = roomId;
-        this.clientId = clientId;
+        this.clientName = clientName;
     }
 
     public long getId() {
@@ -43,7 +43,7 @@ public class Reservation {
         return roomId;
     }
 
-    public long getClientId() {
-        return clientId;
+    public String getClientName() {
+        return clientName;
     }
 }

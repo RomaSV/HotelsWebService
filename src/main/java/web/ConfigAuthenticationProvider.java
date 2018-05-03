@@ -24,7 +24,7 @@ public class ConfigAuthenticationProvider implements AuthenticationProvider {
         Config config = ConfigFactory.load();
         for (int i = 1; i <= config.getObject("users").unwrapped().size(); i++) {
             Map<String, Object> confUser = config.getObject("users." + i).unwrapped();
-            if (confUser.get("name").equals(username) && confUser.get("password").equals(password)) {
+            if (confUser.get("userName").equals(username) && confUser.get("password").equals(password)) {
                 List<GrantedAuthority> grantedAuths =
                         AuthorityUtils.commaSeparatedStringToAuthorityList(confUser.get("role").toString());
 

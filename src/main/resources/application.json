@@ -1,24 +1,28 @@
 {
   "users": {
     "1": {
-      "name": "user",
+      "userName": "user",
       "password": "password",
-      "role": "ROLE_USER"
+      "role": "ROLE_USER",
+      "name": "Иван"
     },
     "2": {
-      "name": "DUMMY",
+      "userName": "DUMMY",
       "password": "123",
-      "role": "ROLE_USER"
+      "role": "ROLE_USER",
+      "name": "Николай"
     },
     "3": {
-      "name": "Yellow",
+      "userName": "Yellow",
       "password": "BANANA",
-      "role": "ROLE_MANAGER"
+      "role": "ROLE_MANAGER",
+      "name": "Алексей (менеджер)"
     },
     "4": {
-      "name":"hotelAdmin",
-      "password":"admin",
-      "role":"ROLE_ADMIN"
+      "userName": "hotelAdmin",
+      "password": "admin",
+      "role": "ROLE_ADMIN",
+      "name": "Антон (администратор)"
     }
   },
 
@@ -54,7 +58,7 @@
     "1": {
       "hotelId": "1",
       "roomId": "1",
-      "userId": "1",
+      "userName": "user",
       "arrival": "2018-05-01",
       "department": "2018-05-05"
     }
