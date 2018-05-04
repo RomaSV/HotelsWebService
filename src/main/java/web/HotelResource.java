@@ -45,8 +45,8 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public List<Room> getRooms(@PathVariable("hotelId") Long hotelId) {
-        return hotelNetwork.getRooms(hotelId);
+    public List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestParam Map<String, String> params) {
+        return hotelNetwork.getRooms(hotelId, params);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class HotelResource implements HotelService {
     @Override
     public Room addRoom(@PathVariable("hotelId") Long hotelId, @RequestBody RoomUpdateRequest request) {
         return hotelNetwork.
-                addRoom(hotelId, request.getName(), request.getDescription(), request.getPrice());
+                addRoom(hotelId, request);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class HotelResource implements HotelService {
 
     @Override
     public Room updateRoom(long hotelId, int roomId, RoomUpdateRequest request) {
-        return hotelNetwork.updateRoom(hotelId, roomId, request.getName(), request.getDescription(), request.getPrice());
+        return hotelNetwork.updateRoom(hotelId, roomId, request);
     }
 
     @Override

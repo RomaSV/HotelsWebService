@@ -40,62 +40,77 @@
 
   "hotels": {
     "1": {
-      "name":"Loteh",
-      "description":"You want to stay here, for sure.",
-      "stars":"4",
-      "hasRestaurant":false,
-      "closeToCenter":true,
-      "adminName":"hotelAdmin",
+      "name": "Loteh",
+      "description": "You want to stay here, for sure.",
+      "stars": 4,
+      "hasRestaurant": false,
+      "closeToCenter": true,
+      "adminName": "hotelAdmin",
       "rooms": {
         "1": {
-          "name":"414",
-          "description":"The most comfy room in the hotel!",
-          "price":"1000",
+          "name": "414",
+          "description": "The most comfy room in the hotel!",
+          "price": "1000",
+          "numberOfPeople": 3,
+          "hasFridge": true,
+          "hasBathroom": false,
           "bookedDays": ["2018-05-01", "2018-05-02", "2018-05-03", "2018-05-04", "2018-05-05"]
         },
         "2": {
-          "name":"404",
-          "description":"It seems like this room is not found...",
-          "price":"404.99",
+          "name": "404",
+          "description": "It seems like this room is not found...",
+          "price": "404.99",
+          "numberOfPeople":2,
+          "hasFridge":true,
+          "hasBathroom":true,
           "bookedDays": ["2018-04-04", "2018-04-05"]
         }
       }
     },
     "2": {
-      "name":"New Loteh",
-      "description":"Even better than Loteh!",
-      "stars":"5",
-      "hasRestaurant":true,
-      "closeToCenter":true,
-      "adminName":"vasily",
+      "name": "New Loteh",
+      "description": "Even better than Loteh!",
+      "stars": 5,
+      "hasRestaurant": true,
+      "closeToCenter": true,
+      "adminName": "vasily",
       "rooms": {
         "1": {
-          "name":"Room 1",
-          "description":"Room ONE only for ONE thousand rub. per night!",
-          "price":"1000",
+          "name": "Room 1",
+          "description": "Room ONE only for ONE thousand rub. per night!",
+          "price": "1000",
+          "numberOfPeople": 1,
+          "hasFridge": false,
+          "hasBathroom": false,
           "bookedDays": ["2018-06-10", "2018-06-11", "2018-06-12", "2018-06-13"]
         },
         "2": {
-          "name":"Room 2",
-          "description":"Room TWO  only for.. TWO thousand rub. per night!",
-          "price":"2000",
+          "name": "Room 2",
+          "description": "Room TWO  only for.. TWO thousand rub. per night!",
+          "price": "2000",
+          "numberOfPeople": 2,
+          "hasFridge": false,
+          "hasBathroom": true,
           "bookedDays": ["2018-06-10", "2018-06-11", "2018-06-12"]
         },
         "3": {
-          "name":"Room 4",
-          "description":"Room FOUR.. No, srsly?",
-          "price":"4000",
+          "name": "Room 4",
+          "description": "Room FOUR.. No, srsly?",
+          "price": "4000",
+          "numberOfPeople": 4,
+          "hasFridge": true,
+          "hasBathroom": true,
           "bookedDays": ["2018-08-30", "2018-08-31"]
         }
       }
     },
     "3": {
-      "name":"PolyHotel",
-      "description":"Lorem ipsum dolor sit amet.",
-      "stars":"3",
-      "hasRestaurant":false,
-      "closeToCenter":false,
-      "adminName":"vasily",
+      "name": "PolyHotel",
+      "description": "Lorem ipsum dolor sit amet.",
+      "stars": 3,
+      "hasRestaurant": false,
+      "closeToCenter": false,
+      "adminName": "vasily",
       "rooms": {}
     }
   },

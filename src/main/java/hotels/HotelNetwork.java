@@ -1,6 +1,7 @@
 package hotels;
 
 import api.HotelUpdateRequest;
+import api.RoomUpdateRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,8 +51,29 @@ public class HotelNetwork {
         return hotels.getOrDefault(hotelId, null);
     }
 
-    public List<Room> getRooms(long hotelId) {
-        return new ArrayList<>(getHotel(hotelId).getRooms().values());
+    public List<Room> getRooms(long hotelId, Map <String, String> params) {
+        String numberOfPeople = params.get("numberOfPeople");
+        String hasBathroom = params.get("hasBathroom");
+        String hasFridge = params.get("hasFridge");
+
+        List<Room> result = new ArrayList<>();
+        for (Room room: hotels.get(hotelId).getRooms().values()) {
+            boolean accept = true;
+            if (numberOfPeople != null && room.getNumberOfPeople() != Integer.parseInt(numberOfPeople)) {
+                accept = false;
+            }
+            if (hasBathroom != null && room.isWithBathroom() != Boolean.parseBoolean(hasBathroom)) {
+                accept = false;
+            }
+            if (hasFridge != null && room.isWithFridge() != Boolean.parseBoolean(hasFridge)) {
+                accept = false;
+            }
+
+            if (accept) {
+                result.add(room);
+            }
+        }
+        return result;
     }
 
     public Room getRoom(long hotelId, int roomId) {
@@ -64,8 +86,8 @@ public class HotelNetwork {
         return hotel;
     }
 
-    public Room addRoom(long hotelId, String name, String descr, double price) {
-        return getHotel(hotelId).addRoom(name, descr, price);
+    public Room addRoom(long hotelId, RoomUpdateRequest request) {
+        return getHotel(hotelId).addRoom(request);
     }
 
     public Hotel updateHotel(long hotelId, HotelUpdateRequest updateRequest) {
@@ -78,11 +100,14 @@ public class HotelNetwork {
         return hotel;
     }
 
-    public Room updateRoom(long hotelId, int roomId, String name, String description, double price) {
+    public Room updateRoom(long hotelId, int roomId, RoomUpdateRequest updateRequest) {
         Room room = getHotel(hotelId).getRoomById(roomId);
-        room.setName(name);
-        room.setDescription(description);
-        room.setPricePerNight(price);
+        room.setName(updateRequest.getName());
+        room.setDescription(updateRequest.getDescription());
+        room.setPricePerNight(updateRequest.getPrice());
+        room.setNumberOfPeople(updateRequest.getNumberOfPeople());
+        room.setWithBathroom(updateRequest.isWithBathroom());
+        room.setWithFridge(updateRequest.isWithFridge());
         return room;
     }
 

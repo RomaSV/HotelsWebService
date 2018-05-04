@@ -1,5 +1,7 @@
 package hotels;
 
+import api.RoomUpdateRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -24,11 +26,14 @@ public class Hotel {
         roomCounter = new AtomicInteger();
     }
 
-    public Room addRoom(String name, String description, double price) {
+    public Room addRoom(RoomUpdateRequest request) {
         Room room = new Room(roomCounter.incrementAndGet());
-        room.setName(name);
-        room.setDescription(description);
-        room.setPricePerNight(price);
+        room.setName(request.getName());
+        room.setDescription(request.getDescription());
+        room.setPricePerNight(request.getPrice());
+        room.setNumberOfPeople(request.getNumberOfPeople());
+        room.setWithBathroom(request.isWithBathroom());
+        room.setWithFridge(request.isWithFridge());
         rooms.put(room.getId(), room);
         return room;
     }

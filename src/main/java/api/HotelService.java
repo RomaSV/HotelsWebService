@@ -18,7 +18,7 @@ public interface HotelService {
     Hotel getHotel(@PathVariable("hotelId") Long hotelId);
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}/rooms")
-    List<Room> getRooms(@PathVariable("hotelId") Long hotelId);
+    List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestParam Map<String, String> params);
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}/rooms/{roomId}")
     Room getRoom(@PathVariable("hotelId") Long hotelId, @PathVariable("roomId") Integer roomId);

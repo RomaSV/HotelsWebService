@@ -7,10 +7,14 @@ import java.util.Objects;
 
 public class Room {
     private final int id;
+    private List<LocalDate> bookedDays;
+
     private String name;
     private String description;
     private double pricePerNight;
-    private List<LocalDate> bookedDays;
+    private int numberOfPeople;
+    private boolean withBathroom;
+    private boolean withFridge;
 
     public Room(int id) {
         this.id = id;
@@ -86,6 +90,30 @@ public class Room {
 
     public double getPricePerNight() {
         return pricePerNight;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setWithBathroom(boolean withBathroom) {
+        this.withBathroom = withBathroom;
+    }
+
+    public boolean isWithBathroom() {
+        return withBathroom;
+    }
+
+    public void setWithFridge(boolean withFridge) {
+        this.withFridge = withFridge;
+    }
+
+    public boolean isWithFridge() {
+        return withFridge;
     }
 
     private void checkDates(LocalDate first, LocalDate second) {

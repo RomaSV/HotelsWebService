@@ -1,6 +1,7 @@
 package web;
 
 import api.HotelUpdateRequest;
+import api.RoomUpdateRequest;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import hotels.*;
@@ -25,18 +26,28 @@ public class ConfigData {
         for (long i = 1; i <= config.getObject("hotels").unwrapped().size(); i++) {
             Map<String, Object> hotel = config.getObject("hotels." + i).unwrapped();
             hotelNetwork.addHotel(hotel.get("adminName").toString());
+
             HotelUpdateRequest request = new HotelUpdateRequest();
             request.setName(hotel.get("name").toString());
             request.setDescription(hotel.get("description").toString());
-            request.setStars(Integer.parseInt(hotel.get("stars").toString()));
+            request.setStars((int)hotel.get("stars"));
             request.setWithRestaurant((boolean)hotel.get("hasRestaurant"));
             request.setCloseToCenter((boolean)hotel.get("closeToCenter"));
+
             hotelNetwork.updateHotel(i, request);
 
             for (int j = 1; j <= config.getObject("hotels." + i + ".rooms").unwrapped().size(); j++) {
                 Map<String, Object> roomConf = config.getObject("hotels." + i + ".rooms." + j).unwrapped();
-                Room room = hotelNetwork.addRoom(i, roomConf.get("name").toString(),
-                        roomConf.get("description").toString(), Double.parseDouble(roomConf.get("price").toString()));
+
+                RoomUpdateRequest roomRequest = new RoomUpdateRequest();
+                roomRequest.setName(roomConf.get("name").toString());
+                roomRequest.setDescription(roomConf.get("description").toString());
+                roomRequest.setPrice(Double.parseDouble(roomConf.get("price").toString()));
+                roomRequest.setNumberOfPeople((int)roomConf.get("numberOfPeople"));
+                roomRequest.setWithBathroom((boolean)roomConf.get("hasBathroom"));
+                roomRequest.setWithFridge((boolean)roomConf.get("hasFridge"));
+
+                Room room = hotelNetwork.addRoom(i, roomRequest);
                 ArrayList<String> dates = (ArrayList<String>)roomConf.get("bookedDays");
                 room.book(dates.get(0), dates.get(dates.size() - 1));
             }

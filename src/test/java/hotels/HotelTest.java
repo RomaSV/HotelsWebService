@@ -1,5 +1,6 @@
 package hotels;
 
+import api.RoomUpdateRequest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +8,11 @@ public class HotelTest {
     @Test
     public void addRoom() {
         Hotel hotel = new Hotel(1, "admin");
-        Room room = hotel.addRoom("2-х комнатный ЛЮКС", "", 1000.0);
+        RoomUpdateRequest request = new RoomUpdateRequest();
+        request.setName("2-х комнатный ЛЮКС");
+        request.setDescription("");
+        request.setPrice(2000.0);
+        Room room = hotel.addRoom(request);
 
         assertEquals(1, hotel.getAmountOfRooms());
         assertEquals("2-х комнатный ЛЮКС",
@@ -28,7 +33,11 @@ public class HotelTest {
     @Test
     public void deleteRoomTest() {
         Hotel hotel = new Hotel(1, "admin");
-        Room room = hotel.addRoom("Room", "", 42.0);
+        RoomUpdateRequest request = new RoomUpdateRequest();
+        request.setName("room");
+        request.setDescription("");
+        request.setPrice(2000.0);
+        Room room = hotel.addRoom(request);
 
         assertTrue(hotel.deleteRoom(room.getId()));
         assertEquals(0, hotel.getAmountOfRooms());
