@@ -23,6 +23,18 @@
       "password": "admin",
       "role": "ROLE_ADMIN",
       "name": "Антон (администратор)"
+    },
+    "5": {
+      "userName": "vasily",
+      "password": "newLoteh",
+      "role": "ROLE_ADMIN",
+      "name": "Василий (администратор)"
+    },
+    "6": {
+      "userName": "Roman",
+      "password": "itsasecret",
+      "role": "ROLE_USER",
+      "name": "Роман"
     }
   },
 
@@ -30,6 +42,9 @@
     "1": {
       "name":"Loteh",
       "description":"You want to stay here, for sure.",
+      "stars":"4",
+      "hasRestaurant":false,
+      "closeToCenter":true,
       "adminName":"hotelAdmin",
       "rooms": {
         "1": {
@@ -42,14 +57,45 @@
           "name":"404",
           "description":"It seems like this room is not found...",
           "price":"404.99",
-          "bookedDays": ["2018-04-04"]
+          "bookedDays": ["2018-04-04", "2018-04-05"]
         }
       }
     },
     "2": {
       "name":"New Loteh",
       "description":"Even better than Loteh!",
-      "adminName":"6",
+      "stars":"5",
+      "hasRestaurant":true,
+      "closeToCenter":true,
+      "adminName":"vasily",
+      "rooms": {
+        "1": {
+          "name":"Room 1",
+          "description":"Room ONE only for ONE thousand rub. per night!",
+          "price":"1000",
+          "bookedDays": ["2018-06-10", "2018-06-11", "2018-06-12", "2018-06-13"]
+        },
+        "2": {
+          "name":"Room 2",
+          "description":"Room TWO  only for.. TWO thousand rub. per night!",
+          "price":"2000",
+          "bookedDays": ["2018-06-10", "2018-06-11", "2018-06-12"]
+        },
+        "3": {
+          "name":"Room 4",
+          "description":"Room FOUR.. No, srsly?",
+          "price":"4000",
+          "bookedDays": ["2018-08-30", "2018-08-31"]
+        }
+      }
+    },
+    "3": {
+      "name":"PolyHotel",
+      "description":"Lorem ipsum dolor sit amet.",
+      "stars":"3",
+      "hasRestaurant":false,
+      "closeToCenter":false,
+      "adminName":"vasily",
       "rooms": {}
     }
   },
@@ -61,6 +107,34 @@
       "userName": "user",
       "arrival": "2018-05-01",
       "department": "2018-05-05"
+    },
+    "2": {
+      "hotelId": "1",
+      "roomId": "2",
+      "userName": "user",
+      "arrival": "2018-04-04",
+      "department": "2018-04-05"
+    },
+    "3": {
+      "hotelId": "2",
+      "roomId": "1",
+      "userName": "DUMMY",
+      "arrival": "2018-06-10",
+      "department": "2018-06-13"
+    },
+    "4": {
+      "hotelId": "2",
+      "roomId": "2",
+      "userName": "Roman",
+      "arrival": "2018-06-10",
+      "department": "2018-06-12"
+    },
+    "5": {
+      "hotelId": "2",
+      "roomId": "3",
+      "userName": "user",
+      "arrival": "2018-08-30",
+      "department": "2018-08-31"
     }
   }
 }

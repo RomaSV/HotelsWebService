@@ -9,9 +9,11 @@ import hotels.HotelNetwork;
 import hotels.Room;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HotelResource implements HotelService {
@@ -25,8 +27,12 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public List<Hotel> getHotels() {
-        return hotelNetwork.getHotels();
+    public List<Hotel> getHotels(@RequestParam Map<String, String> params) {
+        if (params.isEmpty()) {
+            return hotelNetwork.getHotels();
+        } else {
+            return hotelNetwork.getHotels(params);
+        }
     }
 
     @Override
@@ -61,7 +67,7 @@ public class HotelResource implements HotelService {
 
     @Override
     public Hotel updateHotel(@PathVariable("hotelId") Long hotelId, @RequestBody HotelUpdateRequest request) {
-        return hotelNetwork.updateHotel(hotelId, request.getName(), request.getDescription());
+        return hotelNetwork.updateHotel(hotelId, request);
     }
 
     @Override

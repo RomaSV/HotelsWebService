@@ -1,5 +1,6 @@
 package web;
 
+import api.HotelUpdateRequest;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import hotels.*;
@@ -24,7 +25,13 @@ public class ConfigData {
         for (long i = 1; i <= config.getObject("hotels").unwrapped().size(); i++) {
             Map<String, Object> hotel = config.getObject("hotels." + i).unwrapped();
             hotelNetwork.addHotel(hotel.get("adminName").toString());
-            hotelNetwork.updateHotel(i, hotel.get("name").toString(), hotel.get("description").toString());
+            HotelUpdateRequest request = new HotelUpdateRequest();
+            request.setName(hotel.get("name").toString());
+            request.setDescription(hotel.get("description").toString());
+            request.setStars(Integer.parseInt(hotel.get("stars").toString()));
+            request.setWithRestaurant((boolean)hotel.get("hasRestaurant"));
+            request.setCloseToCenter((boolean)hotel.get("closeToCenter"));
+            hotelNetwork.updateHotel(i, request);
 
             for (int j = 1; j <= config.getObject("hotels." + i + ".rooms").unwrapped().size(); j++) {
                 Map<String, Object> roomConf = config.getObject("hotels." + i + ".rooms." + j).unwrapped();
@@ -89,12 +96,13 @@ public class ConfigData {
     }
 
     private UserType getUserType(String type) {
-        if (type.equals("ROLE_ADMIN")) {
-            return UserType.ADMIN;
-        } else if (type.equals("ROLE_MANAGER")) {
-            return UserType.MANAGER;
-        } else {
-            return UserType.USER;
+        switch (type) {
+            case "ROLE_ADMIN":
+                return UserType.ADMIN;
+            case "ROLE_MANAGER":
+                return UserType.MANAGER;
+            default:
+                return UserType.USER;
         }
     }
 

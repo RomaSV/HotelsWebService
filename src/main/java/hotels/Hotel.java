@@ -8,10 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Hotel {
     private AtomicInteger roomCounter;
     private final long id;
-    private String name;
-    private String description;
     private final Map<Integer, Room> rooms;
     private String adminName;
+
+    private String name;
+    private String description;
+    private int stars;
+    private boolean withRestaurant;
+    private boolean closeToCenter;
 
     public Hotel(long id, String adminName) {
         this.id = id;
@@ -80,6 +84,36 @@ public class Hotel {
 
     public String getAdminName() {
         return adminName;
+    }
+
+    public void setStars(int stars) {
+        if (stars < 0) {
+            this.stars = 0;
+        } else if (stars > 5) {
+            this.stars = 5;
+        } else {
+            this.stars = stars;
+        }
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setWithRestaurant(boolean withRestaurant) {
+        this.withRestaurant = withRestaurant;
+    }
+
+    public boolean isWithRestaurant() {
+        return withRestaurant;
+    }
+
+    public void setCloseToCenter(boolean closeToCenter) {
+        this.closeToCenter = closeToCenter;
+    }
+
+    public boolean isCloseToCenter() {
+        return closeToCenter;
     }
 
     @Override

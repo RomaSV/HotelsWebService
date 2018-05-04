@@ -1,5 +1,7 @@
 package hotels;
 
+import api.HotelUpdateRequest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,31 @@ public class HotelNetwork {
 
     public List<Hotel> getHotels() {
         return new ArrayList<>(hotels.values());
+    }
+
+    public List<Hotel> getHotels(Map <String, String> params) {
+        String stars = params.get("stars");
+        String hasRestaurants = params.get("hasRestaurant");
+        String closeToCenter = params.get("closeToCenter");
+
+        List<Hotel> result = new ArrayList<>();
+        for (Hotel hotel: hotels.values()) {
+            boolean accept = true;
+            if (stars != null && hotel.getStars() != Integer.parseInt(stars)) {
+                accept = false;
+            }
+            if (hasRestaurants != null && hotel.isWithRestaurant() != Boolean.parseBoolean(hasRestaurants)) {
+                accept = false;
+            }
+            if (closeToCenter != null && hotel.isCloseToCenter() != Boolean.parseBoolean(closeToCenter)) {
+                accept = false;
+            }
+
+            if (accept) {
+                result.add(hotel);
+            }
+        }
+        return result;
     }
 
     public Hotel getHotel(long hotelId) {
@@ -41,10 +68,13 @@ public class HotelNetwork {
         return getHotel(hotelId).addRoom(name, descr, price);
     }
 
-    public Hotel updateHotel(long hotelId, String name, String descr) {
+    public Hotel updateHotel(long hotelId, HotelUpdateRequest updateRequest) {
         Hotel hotel = getHotel(hotelId);
-        hotel.setName(name);
-        hotel.setDescription(descr);
+        hotel.setName(updateRequest.getName());
+        hotel.setDescription(updateRequest.getDescription());
+        hotel.setStars(updateRequest.getStars());
+        hotel.setWithRestaurant(updateRequest.isWithRestaurant());
+        hotel.setCloseToCenter(updateRequest.isCloseToCenter());
         return hotel;
     }
 
