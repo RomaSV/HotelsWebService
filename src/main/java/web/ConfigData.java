@@ -6,10 +6,10 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import hotels.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * To work with mini data-base emulated in config
@@ -66,15 +66,84 @@ public class ConfigData {
         return result;
     }
 
-    public List<Reservation> getReservations(User user) {
+    public NetworkStatistics getNetworkStatistics() {
+        NetworkStatistics statistics = new NetworkStatistics();
+
+        double proceeds = 0;
+        long reservationNumber = config.getObject("reservations").unwrapped().size();
+
+        Map<Long, Integer> hotelsReservationNum = new HashMap<>();
+
+        for (long i = 1; i <= reservationNumber; i++) {
+            long hotelId = config.getLong("reservations." + i + ".hotelId");
+            int roomId = config.getInt("reservations." + i + ".roomId");
+            String arrival = config.getString("reservations." + i + ".arrival");
+            String departure = config.getString("reservations." + i + ".departure");
+            double roomPrice = config.getDouble("hotels." + hotelId + ".rooms." + roomId + ".price");
+
+            if (!hotelsReservationNum.containsKey(hotelId)) {
+                hotelsReservationNum.put(hotelId, 0);
+            } else {
+                hotelsReservationNum.put(hotelId, hotelsReservationNum.get(hotelId) + 1);
+            }
+
+            LocalDate firstDay = LocalDate.parse(arrival);
+            LocalDate lastDay = LocalDate.parse(departure);
+            long days = DAYS.between(firstDay, lastDay) + 1;
+
+            proceeds += days * roomPrice;
+        }
+
+        int largestHotelReservNum = Collections.max(hotelsReservationNum.values());
+        final long[] mostPopularHotel = {0};
+        hotelsReservationNum.forEach((key, value) -> {
+            if(value == largestHotelReservNum) {
+                mostPopularHotel[0] = key;
+            }
+        });
+
+        statistics.setMostPopularHotel(mostPopularHotel[0]);
+        statistics.setReservationNumber(reservationNumber);
+        statistics.setProceeds(proceeds);
+
+        return statistics;
+    }
+
+    public List<Reservation> getReservations(User user, Map<String, String> params) {
         switch (user.getType()) {
             case MANAGER:
-                return getReservations();
+                return filterReservations(getReservations(), params);
             case ADMIN:
-                return getReservationsBy("hotelId", getHotelIdByAdmin(user.getUserName()));
+                return filterReservations(
+                        getReservationsBy("hotelId", getHotelIdByAdmin(user.getUserName())), params);
             default:
                 return getReservationsBy("userName", user.getUserName());
         }
+    }
+
+    private List<Reservation> filterReservations(List<Reservation> reservations, Map<String, String> params) {
+        String hotelId = params.get("hotelId");
+        String roomId = params.get("roomId");
+        String isPrepayed = params.get("isPrepayed");
+
+        List<Reservation> result = new ArrayList<>();
+        for (Reservation reservation: reservations) {
+            boolean accept = true;
+            if (hotelId != null && reservation.getHotelId() != Long.parseLong(hotelId)) {
+                accept = false;
+            }
+            if (roomId != null && reservation.getRoomId() != Integer.parseInt(roomId)) {
+                accept = false;
+            }
+            if (isPrepayed != null && reservation.getPrepay() > 0 != Boolean.parseBoolean(isPrepayed)) {
+                accept = false;
+            }
+
+            if (accept) {
+                result.add(reservation);
+            }
+        }
+        return result;
     }
 
     private List<Reservation> getReservationsBy(String filter, String value) {
@@ -83,9 +152,10 @@ public class ConfigData {
             Map<String, Object> reservConf = config.getObject("reservations." + i).unwrapped();
             if (reservConf.get(filter).toString().equals(value)) {
                 Reservation reservation = new Reservation(i, Long.parseLong(reservConf.get("hotelId").toString()),
-                        Integer.parseInt(reservConf.get("roomId").toString()), reservConf.get("userName").toString());
+                        (int)reservConf.get("roomId"), reservConf.get("userName").toString());
                 reservation.setArrival(reservConf.get("arrival").toString());
-                reservation.setDeparture(reservConf.get("department").toString());
+                reservation.setDeparture(reservConf.get("departure").toString());
+                reservation.setPrepay((int)reservConf.get("prepay"));
                 result.add(reservation);
             }
         }
@@ -98,9 +168,11 @@ public class ConfigData {
             Map<String, Object> reservConf = config.getObject("reservations." + i).unwrapped();
 
             Reservation reservation = new Reservation(i, Long.parseLong(reservConf.get("hotelId").toString()),
-                    Integer.parseInt(reservConf.get("roomId").toString()), reservConf.get("userName").toString());
+                    (int)reservConf.get("roomId"), reservConf.get("userName").toString());
             reservation.setArrival(reservConf.get("arrival").toString());
-            reservation.setDeparture(reservConf.get("department").toString());
+            reservation.setDeparture(reservConf.get("departure").toString());
+            reservation.setPrepay((int)reservConf.get("prepay"));
+
             result.add(reservation);
         }
         return result;

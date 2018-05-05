@@ -118,38 +118,43 @@
   "reservations": {
     "1": {
       "hotelId": "1",
-      "roomId": "1",
+      "roomId": 1,
       "userName": "user",
       "arrival": "2018-05-01",
-      "department": "2018-05-05"
+      "departure": "2018-05-05",
+      "prepay": 1000
     },
     "2": {
       "hotelId": "1",
-      "roomId": "2",
+      "roomId": 2,
       "userName": "user",
       "arrival": "2018-04-04",
-      "department": "2018-04-05"
+      "departure": "2018-04-05",
+      "prepay": 0
     },
     "3": {
       "hotelId": "2",
-      "roomId": "1",
+      "roomId": 1,
       "userName": "DUMMY",
       "arrival": "2018-06-10",
-      "department": "2018-06-13"
+      "departure": "2018-06-13",
+      "prepay": 2000
     },
     "4": {
       "hotelId": "2",
-      "roomId": "2",
+      "roomId": 2,
       "userName": "Roman",
       "arrival": "2018-06-10",
-      "department": "2018-06-12"
+      "departure": "2018-06-12",
+      "prepay": 1000
     },
     "5": {
       "hotelId": "2",
-      "roomId": "3",
+      "roomId": 3,
       "userName": "user",
       "arrival": "2018-08-30",
-      "department": "2018-08-31"
+      "departure": "2018-08-31",
+      "prepay": 0
     }
   }
 }

@@ -2,6 +2,7 @@ package api;
 
 import hotels.Hotel;
 import hotels.Room;
+import hotels.NetworkStatistics;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.security.access.annotation.Secured;
@@ -13,6 +14,11 @@ import java.util.Map;
 public interface HotelService {
     @RequestMapping(method = RequestMethod.GET, value = "/hotels")
     List<Hotel> getHotels(@RequestParam Map<String, String> params);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/hotels/statistics")
+    @Secured("ROLE_MANAGER")
+    @ApiOperation(value = "Get statistics", authorizations = {@Authorization(value="basicAuth")})
+    NetworkStatistics getStatistics();
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}")
     Hotel getHotel(@PathVariable("hotelId") Long hotelId);

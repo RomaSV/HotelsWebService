@@ -6,6 +6,7 @@ import api.RoomBookRequest;
 import api.RoomUpdateRequest;
 import hotels.Hotel;
 import hotels.HotelNetwork;
+import hotels.NetworkStatistics;
 import hotels.Room;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,11 @@ public class HotelResource implements HotelService {
         } else {
             return hotelNetwork.getHotels(params);
         }
+    }
+
+    @Override
+    public NetworkStatistics getStatistics() {
+        return configData.getNetworkStatistics();
     }
 
     @Override

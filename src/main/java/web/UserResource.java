@@ -4,6 +4,7 @@ import api.UserService;
 import hotels.Reservation;
 import hotels.User;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -29,7 +30,8 @@ public class UserResource implements UserService{
     }
 
     @Override
-    public List<Reservation> getReservations(@PathVariable("userName") String userName) {
-        return configData.getReservations(getUser(userName));
+    public List<Reservation> getReservations(@PathVariable("userName") String userName,
+                                             @RequestParam Map<String, String> params) {
+        return configData.getReservations(getUser(userName), params);
     }
 }

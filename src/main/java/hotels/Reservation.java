@@ -7,6 +7,7 @@ public class Reservation {
     private final String clientName;
     private String arrival;
     private String departure;
+    private int prepay;
 
     public Reservation(long id, long hotelId, int roomId, String clientName) {
         this.id = id;
@@ -33,6 +34,14 @@ public class Reservation {
 
     public void setDeparture(String departure) {
         this.departure = departure;
+    }
+
+    public int getPrepay() {
+        return prepay;
+    }
+
+    public void setPrepay(int prepay) {
+        this.prepay = prepay;
     }
 
     public long getHotelId() {

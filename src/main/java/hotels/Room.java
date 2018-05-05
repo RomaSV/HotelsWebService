@@ -21,10 +21,10 @@ public class Room {
         bookedDays = new ArrayList<>();
     }
 
-    public boolean book(String arrival, String department) {
+    public boolean book(String arrival, String departure) {
         LocalDate firstDay = LocalDate.parse(arrival);
-        LocalDate lastDay = LocalDate.parse(department);
-        if (isFree(arrival, department)) {
+        LocalDate lastDay = LocalDate.parse(departure);
+        if (isFree(arrival, departure)) {
             for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
                 bookedDays.add(date);
             }
@@ -34,9 +34,9 @@ public class Room {
         }
     }
 
-    public void cancelBooking(String arrival, String  department) {
+    public void cancelBooking(String arrival, String  departure) {
         LocalDate firstDay = LocalDate.parse(arrival);
-        LocalDate lastDay = LocalDate.parse(department);
+        LocalDate lastDay = LocalDate.parse(departure);
         checkDates(firstDay, lastDay);
 
         for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
@@ -46,9 +46,9 @@ public class Room {
         }
     }
 
-    public boolean isFree(String arrival, String department) {
+    public boolean isFree(String arrival, String departure) {
         LocalDate firstDay = LocalDate.parse(arrival);
-        LocalDate lastDay = LocalDate.parse(department);
+        LocalDate lastDay = LocalDate.parse(departure);
         checkDates(firstDay, lastDay);
 
         for (LocalDate date = firstDay; date.isBefore(lastDay.plusDays(1)); date = date.plusDays(1)) {
