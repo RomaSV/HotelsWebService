@@ -3,7 +3,6 @@ package hotels;
 public class HotelStatistics {
     private long reservationNumber;
     private long mostPopularRoom;
-    private int completelyFreeRooms;
     private double proceeds;
 
     public void setReservationNumber(long reservationNumber) {
@@ -20,14 +19,6 @@ public class HotelStatistics {
 
     public long getMostPopularRoom() {
         return mostPopularRoom;
-    }
-
-    public void setCompletelyFreeRooms(int completelyFreeRooms) {
-        this.completelyFreeRooms = completelyFreeRooms;
-    }
-
-    public int getCompletelyFreeRooms() {
-        return completelyFreeRooms;
     }
 
     public void setProceeds(double proceeds) {

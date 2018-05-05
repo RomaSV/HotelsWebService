@@ -116,7 +116,6 @@ public class ConfigData {
 
         double proceeds = 0;
         long reservationNumber = 0;
-        int freeRooms = 0;
 
         Map<Integer, Integer> roomReservationNum = new HashMap<>();
 
@@ -127,10 +126,6 @@ public class ConfigData {
                 String arrival = config.getString("reservations." + i + ".arrival");
                 String departure = config.getString("reservations." + i + ".departure");
                 double roomPrice = config.getDouble("hotels." + hotelId + ".rooms." + roomId + ".price");
-
-                if (config.getList("hotels." + hotelId + ".rooms." + roomId + ".bookedDays").isEmpty()) {
-                    freeRooms++;
-                }
 
                 if (!roomReservationNum.containsKey(roomId)) {
                     roomReservationNum.put(roomId, 0);
@@ -159,7 +154,6 @@ public class ConfigData {
         }
         statistics.setReservationNumber(reservationNumber);
         statistics.setProceeds(proceeds);
-        statistics.setCompletelyFreeRooms(freeRooms);
 
         return statistics;
     }
