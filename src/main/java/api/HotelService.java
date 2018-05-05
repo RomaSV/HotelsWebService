@@ -1,12 +1,16 @@
 package api;
 
 import hotels.Hotel;
-import hotels.Room;
+import hotels.HotelStatistics;
 import hotels.NetworkStatistics;
+import hotels.Room;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,11 @@ public interface HotelService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}")
     Hotel getHotel(@PathVariable("hotelId") Long hotelId);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}/statistics")
+    @Secured({"ROLE_MANAGER", "ROLE_ADMINISTRATOR"})
+    @ApiOperation(value = "Get statistics", authorizations = {@Authorization(value="basicAuth")})
+    HotelStatistics getStatistics(@PathVariable("hotelId") Long hotelId);
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels/{hotelId}/rooms")
     List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestParam Map<String, String> params);

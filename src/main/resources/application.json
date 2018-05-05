@@ -111,7 +111,17 @@
       "hasRestaurant": false,
       "closeToCenter": false,
       "adminName": "vasily",
-      "rooms": {}
+      "rooms": {
+        "1": {
+          "name": "PolyRoom",
+          "description": "PolyDescription of the PolyRoom",
+          "price": "5010",
+          "numberOfPeople": 2,
+          "hasFridge": true,
+          "hasBathroom": false,
+          "bookedDays": []
+        }
+      }
     }
   },
 

@@ -4,10 +4,7 @@ import api.HotelService;
 import api.HotelUpdateRequest;
 import api.RoomBookRequest;
 import api.RoomUpdateRequest;
-import hotels.Hotel;
-import hotels.HotelNetwork;
-import hotels.NetworkStatistics;
-import hotels.Room;
+import hotels.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +45,11 @@ public class HotelResource implements HotelService {
             throw new RuntimeException("Hotel with id \"" + hotelId + "\" is not found");
         }
         return hotel;
+    }
+
+    @Override
+    public HotelStatistics getStatistics(@PathVariable("hotelId") Long hotelId) {
+        return configData.getHotelStatistics(hotelId);
     }
 
     @Override

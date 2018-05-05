@@ -48,8 +48,10 @@ public class ConfigData {
                 roomRequest.setWithFridge((boolean)roomConf.get("hasFridge"));
 
                 Room room = hotelNetwork.addRoom(i, roomRequest);
-                ArrayList<String> dates = (ArrayList<String>)roomConf.get("bookedDays");
-                room.book(dates.get(0), dates.get(dates.size() - 1));
+                ArrayList<String> dates = new ArrayList<>((ArrayList<String>) roomConf.get("bookedDays"));
+                if (!dates.isEmpty()) {
+                    room.book(dates.get(0), dates.get(dates.size() - 1));
+                }
             }
         }
         return hotelNetwork;
@@ -105,6 +107,59 @@ public class ConfigData {
         statistics.setMostPopularHotel(mostPopularHotel[0]);
         statistics.setReservationNumber(reservationNumber);
         statistics.setProceeds(proceeds);
+
+        return statistics;
+    }
+
+    public HotelStatistics getHotelStatistics(long hotelId) {
+        HotelStatistics statistics = new HotelStatistics();
+
+        double proceeds = 0;
+        long reservationNumber = 0;
+        int freeRooms = 0;
+
+        Map<Integer, Integer> roomReservationNum = new HashMap<>();
+
+        for (long i = 1; i <= config.getObject("reservations").unwrapped().size(); i++) {
+            if (config.getLong("reservations." + i + ".hotelId") == hotelId) {
+                reservationNumber++;
+                int roomId = config.getInt("reservations." + i + ".roomId");
+                String arrival = config.getString("reservations." + i + ".arrival");
+                String departure = config.getString("reservations." + i + ".departure");
+                double roomPrice = config.getDouble("hotels." + hotelId + ".rooms." + roomId + ".price");
+
+                if (config.getList("hotels." + hotelId + ".rooms." + roomId + ".bookedDays").isEmpty()) {
+                    freeRooms++;
+                }
+
+                if (!roomReservationNum.containsKey(roomId)) {
+                    roomReservationNum.put(roomId, 0);
+                } else {
+                    roomReservationNum.put(roomId, roomReservationNum.get(roomId) + 1);
+                }
+
+                LocalDate firstDay = LocalDate.parse(arrival);
+                LocalDate lastDay = LocalDate.parse(departure);
+                long days = DAYS.between(firstDay, lastDay) + 1;
+
+                proceeds += days * roomPrice;
+            }
+        }
+
+        if (!roomReservationNum.isEmpty()) {
+            int largestHotelReservNum = Collections.max(roomReservationNum.values());
+            final int[] mostPopularRoom = {0};
+            roomReservationNum.forEach((key, value) -> {
+                if (value == largestHotelReservNum) {
+                    mostPopularRoom[0] = key;
+                }
+            });
+
+            statistics.setMostPopularRoom(mostPopularRoom[0]);
+        }
+        statistics.setReservationNumber(reservationNumber);
+        statistics.setProceeds(proceeds);
+        statistics.setCompletelyFreeRooms(freeRooms);
 
         return statistics;
     }
