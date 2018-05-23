@@ -1,15 +1,12 @@
 package web;
 
-import api.HotelService;
-import api.HotelUpdateRequest;
-import api.RoomBookRequest;
-import api.RoomUpdateRequest;
+import api.*;
 import hotels.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +22,11 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public List<Hotel> getHotels(@RequestParam Map<String, String> params) {
+    public List<HotelData> getHotels(@RequestBody Map<String, String> params) {
         if (params.isEmpty()) {
-            return hotelNetwork.getHotels();
+            return getHotelsData(hotelNetwork.getHotels());
         } else {
-            return hotelNetwork.getHotels(params);
+            return getHotelsData(hotelNetwork.getHotels(params));
         }
     }
 
@@ -53,7 +50,7 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestParam Map<String, String> params) {
+    public List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestBody Map<String, String> params) {
         return hotelNetwork.getRooms(hotelId, params);
     }
 
@@ -84,10 +81,9 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public Room bookRoom(long hotelId, int roomId, RoomBookRequest request) {
+    public boolean bookRoom(long hotelId, int roomId, RoomBookRequest request) {
         Room room = hotelNetwork.getHotel(hotelId).getRoomById(roomId);
-        room.book(request.getArrival(), request.getDepartment());
-        return room;
+        return room.book(request.getArrival(), request.getDepartment());
     }
 
     @Override
@@ -108,5 +104,46 @@ public class HotelResource implements HotelService {
     @Override
     public boolean deleteRoom(long hotelId, int roomId) {
         return hotelNetwork.deleteRoom(hotelId, roomId);
+    }
+
+    private List<HotelData> getHotelsData(List<Hotel> hotelList) {
+        ArrayList<HotelData> hotels = new ArrayList<>();
+        for (Hotel hotel: hotelList) {
+            hotels.add(getHotelData(hotel));
+        }
+        return hotels;
+    }
+
+    private HotelData getHotelData(Hotel hotel) {
+        HotelData hotelData = new HotelData();
+        hotelData.setName(hotel.getName());
+        hotelData.setDescription(hotel.getDescription());
+        hotelData.setStars(hotel.getStars());
+        hotelData.setCloseToCenter(hotel.isCloseToCenter());
+        hotelData.setWithRestaurant(hotel.isWithRestaurant());
+        hotelData.setRooms(getRoomsData(new ArrayList<>(hotel.getRooms().values())));
+        hotelData.setAmountOfRooms(hotel.getAmountOfRooms());
+
+        return hotelData;
+    }
+
+    private List<RoomData> getRoomsData(List<Room> roomList) {
+        ArrayList<RoomData> rooms = new ArrayList<>();
+        for (Room room: roomList) {
+            rooms.add(getRoomData(room));
+        }
+        return rooms;
+    }
+
+    private RoomData getRoomData(Room room) {
+        RoomData roomData = new RoomData();
+        roomData.setName(room.getName());
+        roomData.setDescription(room.getDescription());
+        roomData.setPricePerNight(room.getPricePerNight());
+        roomData.setNumberOfPeople(room.getNumberOfPeople());
+        roomData.setWithBathroom(room.isWithBathroom());
+        roomData.setWithFridge(room.isWithFridge());
+
+        return roomData;
     }
 }

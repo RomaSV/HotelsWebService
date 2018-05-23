@@ -71,11 +71,6 @@ public class Room {
         return name;
     }
 
-    //Just for debug
-    public String getBookedDays() {
-        return bookedDays.toString();
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
