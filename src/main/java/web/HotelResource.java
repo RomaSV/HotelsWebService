@@ -36,12 +36,12 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public Hotel getHotel(@PathVariable("hotelId") Long hotelId) {
+    public HotelData getHotel(@PathVariable("hotelId") Long hotelId) {
         Hotel hotel = hotelNetwork.getHotel(hotelId);
         if (hotel == null) {
             throw new RuntimeException("Hotel with id \"" + hotelId + "\" is not found");
         }
-        return hotel;
+        return getHotelData(hotel);
     }
 
     @Override
@@ -50,34 +50,33 @@ public class HotelResource implements HotelService {
     }
 
     @Override
-    public List<Room> getRooms(@PathVariable("hotelId") Long hotelId, @RequestBody Map<String, String> params) {
-        return hotelNetwork.getRooms(hotelId, params);
+    public List<RoomData> getRooms(@PathVariable("hotelId") Long hotelId, @RequestBody Map<String, String> params) {
+        return getRoomsData(hotelNetwork.getRooms(hotelId, params));
     }
 
     @Override
-    public Room getRoom(@PathVariable("hotelId") Long hotelId, @PathVariable("roomId") Integer roomId) {
-        return hotelNetwork.getRoom(hotelId, roomId);
+    public RoomData getRoom(@PathVariable("hotelId") Long hotelId, @PathVariable("roomId") Integer roomId) {
+        return getRoomData(hotelNetwork.getRoom(hotelId, roomId));
     }
 
     @Override
-    public Hotel addHotel(String adminName) {
-        return hotelNetwork.addHotel(adminName);
+    public HotelData addHotel(String adminName) {
+        return getHotelData(hotelNetwork.addHotel(adminName));
     }
 
     @Override
-    public Room addRoom(@PathVariable("hotelId") Long hotelId, @RequestBody RoomUpdateRequest request) {
-        return hotelNetwork.
-                addRoom(hotelId, request);
+    public RoomData addRoom(@PathVariable("hotelId") Long hotelId, @RequestBody RoomUpdateRequest request) {
+        return getRoomData(hotelNetwork.addRoom(hotelId, request));
     }
 
     @Override
-    public Hotel updateHotel(@PathVariable("hotelId") Long hotelId, @RequestBody HotelUpdateRequest request) {
-        return hotelNetwork.updateHotel(hotelId, request);
+    public HotelData updateHotel(@PathVariable("hotelId") Long hotelId, @RequestBody HotelUpdateRequest request) {
+        return getHotelData(hotelNetwork.updateHotel(hotelId, request));
     }
 
     @Override
-    public Room updateRoom(long hotelId, int roomId, RoomUpdateRequest request) {
-        return hotelNetwork.updateRoom(hotelId, roomId, request);
+    public RoomData updateRoom(long hotelId, int roomId, RoomUpdateRequest request) {
+        return getRoomData(hotelNetwork.updateRoom(hotelId, roomId, request));
     }
 
     @Override

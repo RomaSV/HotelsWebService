@@ -1,6 +1,6 @@
 package feign;
 
-import hotels.Hotel;
+import api.HotelData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class HotelsServiceTest {
     }
     @Test
     public void getHotels() {
-        List<Hotel> hotels = hotelsClient.getHotels(new HashMap<>());
+        List<HotelData> hotels = hotelsClient.getHotels(new HashMap<>());
         assertEquals(3, hotels.size());
     }
 }

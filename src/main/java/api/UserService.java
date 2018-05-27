@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    @RequestMapping(method = RequestMethod.GET, value = "/accounts")
+    @RequestMapping(method = RequestMethod.POST, value = "/accounts")
     @Secured("ROLE_MANAGER")
     List<User> getUsers();
 
-    @RequestMapping(method = RequestMethod.GET, value = "/accounts/{userName}")
+    @RequestMapping(method = RequestMethod.POST, value = "/accounts/{userName}")
     User getUser(@PathVariable String userName);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/accounts/{userName}/reservations")
+    @RequestMapping(method = RequestMethod.POST, value = "/accounts/{userName}/reservations")
     @PreAuthorize("#userName == authentication.name")
     List<Reservation> getReservations(@PathVariable String userName, @RequestParam Map<String, String> params);
 }
